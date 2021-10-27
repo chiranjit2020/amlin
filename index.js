@@ -1,10 +1,13 @@
-let btn = document.querySelector(".record-btn")
+let btn = document.querySelector(".record-btn");
+let alertBox = document.querySelector(".alert-box");
 
 btn.addEventListener("click", async function () {
   let stream = await navigator.mediaDevices.getDisplayMedia({
     video: true
-  })
+  });
 
+  alertBox.style.display = "block";
+  btn.disabled = true;
   //needed for better browser support
   const mime = MediaRecorder.isTypeSupported("video/webm; codecs=vp9") 
              ? "video/webm; codecs=vp9" 
@@ -31,6 +34,9 @@ btn.addEventListener("click", async function () {
       a.href = url
       a.download = 'video.webm'
       a.click()
+
+      alertBox.style.display = "none";
+      btn.disabled = false;
   })
 
     //we have to start the recorder manually
